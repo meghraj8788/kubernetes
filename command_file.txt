@@ -1,0 +1,9 @@
+
+choco install minikube - install minikube 
+minikube start --driver=docker - start using docker drvier any driver we can use 
+
+minikube delete - delete minikube 
+  
+minikube dashboard -- create dashboard on localhos (web browser)
+
+minikube status - show status of kubelet, worker node , master 
