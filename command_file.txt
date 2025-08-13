@@ -1,9 +1,26 @@
 
 choco install minikube - install minikube 
-minikube start --driver=docker - start using docker drvier any driver we can use 
+minikube start --driver=docker - start using docker drvier any driver we can use (create cluster)
 
 minikube delete - delete minikube 
   
 minikube dashboard -- create dashboard on localhos (web browser)
 
 minikube status - show status of kubelet, worker node , master 
+
+- minikube status
+    minikube
+    type: Control Plane
+    host: Stopped
+    kubelet: Stopped
+    apiserver: Stopped
+    kubeconfig: Stopped
+2 - kubectl create deployment my-nginx --image=nginx:latest (it will create image nginx)
+3-  kubectl get deployments  (show image)
+4 - kubectl get pods
+   
+ kubectl expose deployment my-nginx --port=80 --type=LoadBalancer   (it will create service on port 80 as nginx use 80 port by default with name my-nginx with this comand)
+
+kubectl get services
+
+minikube service my-nginx  - (after you created service we have to tell minikuve about service then it will create URL for application which is inside pod and we can access through browser )
