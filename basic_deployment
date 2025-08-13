@@ -1,0 +1,21 @@
+1- install node js and vscode 
+2 - run ngx command to create app for rect it will install source file and package in testapp file
+3 - write docker file to run source file place docker file and node code at same location 
+4 - npm start - it will run node js application now we have to do it using docker and kubernetes -- http://localhost:3000/
+
+docker file 
+FROM node:20
+
+WORKDIR /my_diR
+
+COPY . .
+
+run npm install
+
+expose 3000
+
+CMD ["npm","start"] 
+
+5 - now kubernetes not use local image u have to push image to docker hub repo so kubernetes can pull image from docker hub and run node application 
+6- created repo for image over docker hub
+7 - 
