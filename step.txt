@@ -1,0 +1,38 @@
+1 - run minikube start driver=kbernetes
+it will run localhost on browser show dashboard
+2 - kubectl create deployment my-nginx --image=nginx:latest (it will create image nginx)
+     deployment.apps/my-nginx created
+3-  kubectl get deployments  (show image)
+     NAME       READY   UP-TO-DATE   AVAILABLE   AGE
+     my-nginx   0/1     1            0           14s
+4 - kubectl get pods
+     NAME                        READY   STATUS              RESTARTS   AGE
+     my-nginx-768f959b59-rk2kq   0/1     ContainerCreating   0          34s     
+in dashboard this image and pod is pop up
+
+5 - now we have to access application which is inside pod in our case it is nginx to access it we used service object as it is inside multiple layer
+thier is command when we run it will give url for that application and then we can access it outside 
+
+6 - kubectl expose deployment my-nginx --port=80 --type=LoadBalancer   (it will create service with name my-nginx with this comand)
+     service/my-nginx exposed
+7 - kubectl get services
+    NAME         TYPE           CLUSTER-IP    EXTERNAL-IP   PORT(S)        AGE
+    kubernetes   ClusterIP      10.96.0.1     <none>        443/TCP        3d19h
+    my-nginx     LoadBalancer   10.97.95.95   <pending>     80:32170/TCP   9s
+8 - now we have create service but now need to tell to minikube about sservice 
+10 -  minikube service my-nginx
+        |-----------|----------|-------------|---------------------------|
+        | NAMESPACE |   NAME   | TARGET PORT |            URL            |
+        |-----------|----------|-------------|---------------------------|
+        | default   | my-nginx |          80 | http://192.168.49.2:32170 |
+        |-----------|----------|-------------|---------------------------|
+        🏃  Starting tunnel for service my-nginx.
+        |-----------|----------|-------------|------------------------|
+        | NAMESPACE |   NAME   | TARGET PORT |          URL           |
+        |-----------|----------|-------------|------------------------|
+        | default   | my-nginx |             | http://127.0.0.1:56448 |
+        |-----------|----------|-------------|------------------------|
+        🎉  Opening service default/my-nginx in default browser...
+        ❗  Because you are using a Docker driver on windows, the terminal needs to be open to run it.
+
+it will give url for that application and you can access it throuh here 
