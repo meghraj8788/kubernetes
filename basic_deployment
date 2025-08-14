@@ -18,4 +18,51 @@ CMD ["npm","start"]
 
 5 - now kubernetes not use local image u have to push image to docker hub repo so kubernetes can pull image from docker hub and run node application 
 6- created repo for image over docker hub
-7 - 
+7 - now i write docker file and now i have to create image from that docker file 
+8 - docker build -t meghrajfand8788/node_app:01 .
+10 - image created localy but kubernetes not work on local image
+9 - meghrajfand8788/node_app: this is name of repo which keep forimage also so we can push this to docker hub repo 
+10 - we have to login docker 
+11 - docker login
+12 - now we can push image
+13 - docker push meghrajfand8788/node_app:01
+14 it will push the image to repo docker hub now we can run kubernetes on this imae to run node 
+15 - nowwe can check our minikube is it running or not
+minikube status
+minikube
+type: Control Plane
+host: Stopped
+kubelet: Stopped
+apiserver: Stopped
+kubeconfig: Stopped
+
+16 - minikube start driver=docker
+17 - kubectl create deployment myapp --image=meghrajfand8788/node_app:01
+18 - it will deploy this image 
+19 - now node run on 3000 port we have to expose it so it can run
+20 - kubectl expose deployment myapp --type=LoadBalancer --port=3000
+21- minikube service myapp 
+22 - this will run your application in myapp it will launch web browser app it will provide on url on that application is running
+
+23 - now when we update any thing in application how kubernetes handled 
+24 - now we have to create new image as we changed source file or code file so we have o create new iamge
+25 - docker build -t meghrajfand8788/node_app:02 . --- now tagname is 02 as it is updated version
+26- docker push meghrajfand8788/node_app:02 -- uplode to docker hub
+27 - now our application is live we want to update applcation while its live and running don want downtime for this kubernetes handle very well
+28 - now we have deployment we just want to point the deployment to new image as we update code on new image so we just point deployment to new image
+29 - kubectl set image deployment myapp node-app-q6lld=meghrajfand8788/node_app:03
+30 - node-app-q6lld -- this is container you can get the name from dashboard in pods 
+31- now kuberenetes point image from 01 to 03 so it will first create container and then delete first container after createing new container change will be 
+    populate in application till then old application will be running this is how downtime or delayed will be handeled you can see below example how he manage 
+    to create new container while old container are still running once new created it removed old container and run on new.
+32 - kubectl get pods
+        NAME                     READY   STATUS              RESTARTS   AGE
+        myapp-545d6d5cbb-sh82n   1/1     Running             0          35m
+        myapp-67f5dcf6dd-q9wbj   0/1     ContainerCreating   0          24s
+33 - kubectl get pods
+        NAME                     READY   STATUS        RESTARTS   AGE
+        myapp-545d6d5cbb-sh82n   1/1     Terminating   0          38m
+        myapp-67f5dcf6dd-q9wbj   1/1     Running       0          2m51s
+34 - kubectl get pods
+        NAME                     READY   STATUS    RESTARTS   AGE
+        myapp-67f5dcf6dd-q9wbj   1/1     Running   0          3m11s
