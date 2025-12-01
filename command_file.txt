@@ -1,5 +1,5 @@
 
-choco install minikube - install minikube 
+iichoco install minikube - install minikube 
 minikube start --driver=docker - start using docker drvier any driver we can use (create cluster)
 
 minikube delete - delete minikube 
