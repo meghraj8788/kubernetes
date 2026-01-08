@@ -1,0 +1,7 @@
+kind: Namespace
+apiVersion: v1
+
+#create name space which name is ngnix_ns
+
+metadata:
+  name: nginx-ns

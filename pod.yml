@@ -1,0 +1,18 @@
+kind: Pod
+apiVersion: v1
+
+#give name to pod
+#and run this pod in which namespace
+
+metadata:
+  name: nginx
+  namespace: nginx-ns
+
+#in docker compose how we use services in starting so same spec we use to build container
+
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80
